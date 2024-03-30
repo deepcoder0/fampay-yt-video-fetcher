@@ -25,7 +25,7 @@ func main() {
 	// 	fmt.Print(err)
 	// }
 
-	commonRoutesGroup := app.Group("/")
+	commonRoutesGroup := app.Group("")
 	fetchVideosRoutesGroup := app.Group("/fetch")
 	searchVideosRoutesGroup := app.Group("/search")
 	

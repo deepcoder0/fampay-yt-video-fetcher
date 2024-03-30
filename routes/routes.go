@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"context"
 	"net/http"
 
 	"fampay-yt-video-fetcher/database"
@@ -15,8 +16,8 @@ func RegisterCommonRoutes(commonRoutesGroup *echo.Group) {
 	})
 
 	commonRoutesGroup.GET("/dbReadiness", func(c echo.Context) error {
-		ready := database.DB.Ping
-		if ready != nil {
+		err := database.DB.Ping(context.Background(), nil)
+		if err != nil {
 			return c.JSON(http.StatusBadRequest, "Unable to connect to DB!")
 		}
 		return c.JSON(http.StatusOK, "Database Ready to Use")
