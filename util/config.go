@@ -4,6 +4,7 @@ import "github.com/spf13/viper"
 
 type Config struct {
 	ServerAddress      string      `mapstructure:"SERVER_ADDRESS"`
+	MongoURI           string      `mapstructure:"MONGODB_URI"` 
 }
 
 // LoadConfig reads configuration from file or environment variables.
