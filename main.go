@@ -17,13 +17,11 @@ func main() {
         log.Fatal("cannot load config:", err)
     }
 
-	database.ConnectDB(&config)
-	// coll, err := client.Database("sample_mflix").Collection("movies").InsertOne(context.TODO(), book)
-	// title := "Back to the Future"
-	// fmt.Printf("Inserted document with _id: %v\n", coll.InsertedID)
-	// if err != nil {
-	// 	fmt.Print(err)
-	// }
+	err = database.ConnectDB(&config)
+	if err != nil {
+		log.Fatal("OOPS! Unable to Connect with DB")
+		return 
+	}
 
 	commonRoutesGroup := app.Group("")
 	fetchVideosRoutesGroup := app.Group("/fetch")
@@ -33,10 +31,5 @@ func main() {
 	routes.RegisterFetchVideosRoutes(fetchVideosRoutesGroup)
 	routes.RegisterSearchVideosRoutes(searchVideosRoutesGroup)
 
-	// app.Routes()
-	
-	// app.GET("/", func(c echo.Context) error {
-	// 	return c.String(http.StatusOK, "Hello, World!")
-	// })
 	app.Logger.Fatal(app.Start(config.ServerAddress))
 }

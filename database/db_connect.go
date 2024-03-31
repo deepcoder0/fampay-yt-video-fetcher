@@ -13,7 +13,7 @@ import (
 
 var DB *mongo.Client
 
-func ConnectDB(config *util.Config) {
+func ConnectDB(config *util.Config) error {
 	var err error
 	mongoURI := config.MongoURI
 	clientOptions := options.Client().ApplyURI(mongoURI)
@@ -24,8 +24,16 @@ func ConnectDB(config *util.Config) {
 	DB, err = mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		fmt.Println(err)
+		return err
 	}
+	// databases, _ := DB.ListDatabaseNames(ctx, bson.M{})
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(databases)
 	log.Println("🚀 Connected Successfully to the Database")
+	return nil
+	
 }
 
 	

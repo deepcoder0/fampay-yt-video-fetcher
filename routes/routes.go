@@ -32,5 +32,6 @@ func RegisterFetchVideosRoutes(fetchVideosRoutesGroup *echo.Group){
 
 func RegisterSearchVideosRoutes(searchVideosRoutesGroup *echo.Group){
 	searchVideosHandler := handler.SearchVideosHandlerInterface{}
-	searchVideosRoutesGroup.GET("", searchVideosHandler.SearchVideosHandler)
+	searchVideosRoutesGroup.GET("", searchVideosHandler.GetVideosHandler)
+	searchVideosRoutesGroup.GET("/:query", searchVideosHandler.SearchVideosQueryHandler)
 }

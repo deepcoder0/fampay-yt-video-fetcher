@@ -73,12 +73,12 @@ func CallYouTubeAPI(url, topic string) ([]models.Video, error) {
 		}
  
 		video := models.Video{
-			VideoId: uuid.NewString(),
-			VideoTopic: topic,
-			VideoTitle: item.Snippet.Title,
-			Description: item.Snippet.Description,
-			PublishingDate:  publishTime,
-			ThumbnailsUrl: item.Snippet.Thumbnails.Default.URL,
+			VideoId       : uuid.NewString(),
+			VideoTopic    : topic,
+			VideoTitle    : item.Snippet.Title,
+			Description   : item.Snippet.Description,
+			PublishingDate: publishTime,
+			ThumbnailsUrl : item.Snippet.Thumbnails.Default.URL,
 		}
 		videos = append(videos, video)
 	}
