@@ -3,7 +3,6 @@ package database
 import (
 	"context"
 	"fampay-yt-video-fetcher/util"
-	"fmt"
 	"log"
 	"time"
 
@@ -23,14 +22,9 @@ func ConnectDB(config *util.Config) error {
 	defer cancel()
 	DB, err = mongo.Connect(ctx, clientOptions)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return err
 	}
-	// databases, _ := DB.ListDatabaseNames(ctx, bson.M{})
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(databases)
 	log.Println("🚀 Connected Successfully to the Database")
 	return nil
 	

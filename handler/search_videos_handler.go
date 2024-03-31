@@ -34,14 +34,13 @@ func (s *SearchVideosHandlerInterface) GetVideosHandler(e echo.Context)error{
 
 func (s *SearchVideosHandlerInterface) SearchVideosQueryHandler(e echo.Context)error{
 	query := e.Param("query")
-	pageSize := 5 // keeping default values for this
-	page := 1 // keeping default values for this
-	videos, err :=service.SearchVideoQuery(query)
-	x:=fmt.Sprintf("Hello, fetching videos from YoutubeAPI with search, Eheheheh: %s", query)
-	// log.Info(x)
+	pageSize := int64(5) // keeping default values for this
+	page := int64(1) // keeping default values for this
+	msg := fmt.Sprintf("Hello, Searching videos from DB where searchQuery :(%s), matches with Title or Description", query)
+	log.Info(msg)
+	videos, err :=service.SearchVideoQuery(query, page, pageSize)
 	if err != nil {
-		log.Info(err)
-		return e.JSON(http.StatusBadRequest, x) // c.Status(fiber.StatusBadGateway).JSON(fiber.Map{"status": "error", "message": err.Error()})
+		return e.JSON(http.StatusBadRequest, err)
 	}
 	return e.JSON(http.StatusOK, videos)
 }

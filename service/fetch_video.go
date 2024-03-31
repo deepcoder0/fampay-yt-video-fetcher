@@ -13,10 +13,11 @@ import (
 	"github.com/google/uuid"
 )
 
-func FetchVideosFromYoutubeAPI(topic string) {
+func FetchVideosFromYoutubeAPI(topic string) error {
 	config, err := util.LoadConfig(".")
     if err != nil {
         log.Fatal("cannot load config:", err)
+		return err
     }
 	apiKeys := config.APIKeysYT
 	apiKeyIndex := 0
@@ -24,11 +25,11 @@ func FetchVideosFromYoutubeAPI(topic string) {
 	go func() {
 		for {
 			apiKey := apiKeys[apiKeyIndex]
+			log.Print("Currently used API Key Number: ", apiKeyIndex+1)
 			currentTime := time.Now()
 			publishedBefore := currentTime.Format(time.RFC3339)
 
 			url := fmt.Sprintf("%s?key=%s&q=%s&type=video&order=date&part=snippet&publishedBefore=%s",constants.SEARCH, apiKey, topic, publishedBefore)
-
 			videos, err := CallYouTubeAPI(url, topic)
 			if err != nil {
 				log.Printf("Error fetching videos: %v", err)
@@ -37,12 +38,16 @@ func FetchVideosFromYoutubeAPI(topic string) {
 				continue
 			}
 
-			SaveVideos(&videos)
+			err = SaveVideos(&videos)
+			if err != nil {
+				log.Fatal(err)
+				break
+			}
 
 			time.Sleep(10 * time.Second)
 		}
 	}()
-
+	return nil
 }
 
 func CallYouTubeAPI(url, topic string) ([]models.Video, error) {

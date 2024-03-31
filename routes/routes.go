@@ -27,7 +27,7 @@ func RegisterCommonRoutes(commonRoutesGroup *echo.Group) {
 
 func RegisterFetchVideosRoutes(fetchVideosRoutesGroup *echo.Group){
 	fetchVideosHandler := handler.FetchVideosHandlerInterface{}
-	fetchVideosRoutesGroup.POST("/:topic", fetchVideosHandler.FetchVideosHandler)
+	fetchVideosRoutesGroup.GET("/:topic", fetchVideosHandler.FetchVideosHandler)
 }
 
 func RegisterSearchVideosRoutes(searchVideosRoutesGroup *echo.Group){

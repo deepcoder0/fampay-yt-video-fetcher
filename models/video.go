@@ -22,5 +22,5 @@ type Video struct {
 	VideoTitle     string     `bson:"videoTitle" json:"videoTitle"`
 	Description    string     `bson:"description" json:"description"`
 	PublishingDate time.Time  `bson:"publishingDate" json:"publishingDate"`
-	ThumbnailsUrl  string `bson:"thumbnails" json:"thumbnails"`
+	ThumbnailsUrl  string     `bson:"thumbnails" json:"thumbnails"`
 }

@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func SaveVideos(videos *[]models.Video){
+func SaveVideos(videos *[]models.Video) error {
 
 	for _, video := range *videos{
 		videoTitle := video.VideoTitle
@@ -18,7 +18,9 @@ func SaveVideos(videos *[]models.Video){
 		err = database.SaveVideoInDB(video)
 		if err != nil {
 			fmt.Println("Unable to save the video in DB, VideoTitle := ", videoTitle, err)
+			return err
 		}
 		fmt.Println("Video inserted into mongoDB where _id := ", video.VideoId)
 	}
+	return nil
 }
