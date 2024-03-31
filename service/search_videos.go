@@ -58,7 +58,7 @@ func SearchVideoQuery(searchQuery string, page, pageSize int64) ([]models.Video,
 	// the keywords can match in any of the title, description
 	filter := bson.M{
 		"$or": []bson.M{
-			{"title": regexOperator},
+			{"videoTitle": regexOperator},
 			{"description": regexOperator},
 		},
 	}

@@ -51,8 +51,7 @@ func FetchVideosFromYoutubeAPI(topic string) error {
 }
 
 func CallYouTubeAPI(url, topic string) ([]models.Video, error) {
-	fmt.Println("The Video search endpoint : ", url)
-
+	// fmt.Println("The Video search endpoint : ", url)
 	response, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -62,7 +61,6 @@ func CallYouTubeAPI(url, topic string) ([]models.Video, error) {
 	if response.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("YouTube API request failed with status code: %d", response.StatusCode)
 	}
-	// fmt.Print(response)
 	var apiResponse models.YouTubeVideoResponse
 	err = json.NewDecoder(response.Body).Decode(&apiResponse)
 	if err != nil {
